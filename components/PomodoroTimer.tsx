@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from "./ui/button";
 import { Play, Pause, RotateCcw } from 'lucide-react';
 
 // Default durations in seconds. In the future, these can be fetched from user settings.

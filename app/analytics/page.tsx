@@ -2,12 +2,12 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { db } from "@/lib/db";
-import { users, tasks, pomodoroSessions } from "@/lib/db/schema";
+import { db } from "../../lib/db";
+import { users, tasks, pomodoroSessions } from "../../lib/db/schema";
 import { and, eq, gte, sql } from 'drizzle-orm';
 import { startOfToday, subDays, format } from 'date-fns';
-import { DashboardStats } from '@/components/DashboardStats';
-import { AnalyticsCharts } from '@/components/AnalyticsCharts';
+import { DashboardStats } from '../../components/DashboardStats';
+import { AnalyticsCharts } from '../../components/AnalyticsCharts';
 
 export default async function AnalyticsPage() {
   const { userId } = await auth();

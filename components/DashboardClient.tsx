@@ -4,7 +4,17 @@
 import { useState } from "react";
 import { TaskItem } from "./TaskItem";
 
-// ... (your TaskWithSubTasks type definition)
+// Define the TaskWithSubTasks type
+export interface TaskWithSubTasks {
+  id: string;
+  title: string;
+  isCompleted: boolean;
+  subTasks: {
+    id: string;
+    title: string;
+    isCompleted: boolean;
+  }[];
+}
 
 interface DashboardClientProps {
   initialTasks: TaskWithSubTasks[];

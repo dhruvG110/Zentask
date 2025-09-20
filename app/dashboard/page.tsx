@@ -2,11 +2,11 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { db } from "@/lib/db";
-import { tasks } from "@/lib/db/schema";
+import { db } from "../../lib/db";
+import { tasks } from "../../lib/db/schema";
 import { and, eq, isNull } from "drizzle-orm";
 import { DashboardClient } from "../../components/DashboardClient"; // We will create this next
-import { PomodoroTimer } from "@/components/PomodoroTimer"; // Import the PomodoroTimer component
+import { PomodoroTimer } from "../../components/PomodoroTimer"; // Import the PomodoroTimer component
 export default async function DashboardPage() {
   const  userId  = (await auth()).userId;
   if (!userId) {
