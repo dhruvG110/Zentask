@@ -4,7 +4,8 @@ import { redirect } from "next/navigation";
 import { db } from "../../lib/db";
 import { tasks } from "../../lib/db/schema";
 import { and, eq, isNull } from "drizzle-orm";
-import { DashboardClient, TaskWithSubTasks } from "../../components/DashboardClient";
+import { TaskWithSubTasks } from "../../types/TaskWithSubTasks";
+import { DashboardClient } from "../../components/DashboardClient";
 import { PomodoroTimer } from "../../components/PomodoroTimer";
 
 export default async function DashboardPage() {

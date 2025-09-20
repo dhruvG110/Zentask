@@ -1,20 +1,8 @@
-// src/components/DashboardClient.tsx
 "use client";
 
 import { useState } from "react";
 import { TaskItem } from "./TaskItem";
-
-// Define the TaskWithSubTasks type
-export interface TaskWithSubTasks {
-  id: string;
-  title: string;
-  isCompleted: boolean;
-  subTasks: {
-    id: string;
-    title: string;
-    isCompleted: boolean;
-  }[];
-}
+import { TaskWithSubTasks } from "../types/TaskWithSubTasks";
 
 interface DashboardClientProps {
   initialTasks: TaskWithSubTasks[];
@@ -23,29 +11,25 @@ interface DashboardClientProps {
 export function DashboardClient({ initialTasks }: DashboardClientProps) {
   const [tasks, setTasks] = useState(initialTasks);
 
-  // Handler for updating a PARENT task's state
   const handleParentTaskUpdate = (taskId: string, isCompleted: boolean) => {
-    setTasks((currentTasks) =>
-      currentTasks.map((task) =>
-        task.id === taskId ? { ...task, isCompleted } : task
-      )
+    setTasks((current) =>
+      current.map((task) => (task.id === taskId ? { ...task, isCompleted } : task))
     );
   };
-  const handleTaskDelete = (taskId: string) => {
-    setTasks((currentTasks) =>
-      currentTasks.filter((task) => task.id !== taskId)
-    );
-  };
-  // Handler for updating a SUBTASK's state
+
   const handleSubTaskUpdate = (subTaskId: string, isCompleted: boolean) => {
-    setTasks((currentTasks) =>
-      currentTasks.map((task) => ({
+    setTasks((current) =>
+      current.map((task) => ({
         ...task,
-        subTasks: task.subTasks.map((subTask) =>
-          subTask.id === subTaskId ? { ...subTask, isCompleted } : subTask
+        subTasks: task.subTasks.map((sub) =>
+          sub.id === subTaskId ? { ...sub, isCompleted } : sub
         ),
       }))
     );
+  };
+
+  const handleTaskDelete = (taskId: string) => {
+    setTasks((current) => current.filter((task) => task.id !== taskId));
   };
 
   if (tasks.length === 0) {
@@ -67,7 +51,7 @@ export function DashboardClient({ initialTasks }: DashboardClientProps) {
           task={task}
           onTaskUpdate={handleParentTaskUpdate}
           onSubTaskUpdate={handleSubTaskUpdate}
-          onTaskDelete={handleTaskDelete} 
+          onTaskDelete={handleTaskDelete}
         />
       ))}
     </div>
