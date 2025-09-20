@@ -1,14 +1,14 @@
+// src/app/api/tasks/[taskId]/route.ts
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "../../../../lib/db";
 import { users, tasks } from "../../../../lib/db/schema";
 import { and, eq } from "drizzle-orm";
-import { isToday, isYesterday } from 'date-fns';
-import type { RequestEvent } from "next/dist/server/web/types";
+import { isToday, isYesterday } from "date-fns";
 
 export async function DELETE(
   request: Request,
-  context: { params: { taskId: string } } // ✅ this is correct
+  context: { params: { taskId: string } } // use "context", don't destructure in the argument
 ) {
   const { params } = context;
   const { taskId } = params;
@@ -30,10 +30,9 @@ export async function DELETE(
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
-
 export async function PATCH(
   request: Request,
-  context: { params: { taskId: string } } // same fix here
+  context: { params: { taskId: string } }
 ) {
   const { params } = context;
   const { taskId } = params;
@@ -60,8 +59,8 @@ export async function PATCH(
         if (currentUser) {
           const lastCompletion = currentUser.lastTaskCompletionDate;
           const today = new Date();
-
           let newStreak = currentUser.currentStreak;
+
           if (lastCompletion && isYesterday(lastCompletion)) {
             newStreak++;
           } else if (!lastCompletion || !isToday(lastCompletion)) {
@@ -70,7 +69,7 @@ export async function PATCH(
 
           await tx
             .update(users)
-            .set({ currentStreak: newStreak, lastTaskCompletionDate: today })
+            .set({ currentStreak: newStreak, lastTaskCompletionDate: today.toISOString() })
             .where(eq(users.id, userId));
         }
       }
