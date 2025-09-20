@@ -8,6 +8,7 @@ import {
   timestamp,
   uuid,
   pgEnum,
+  AnyPgColumn,
 } from "drizzle-orm/pg-core";
 import { relations, type AnyColumn } from "drizzle-orm"; // Ensure AnyColumn is imported
 
