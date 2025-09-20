@@ -1,16 +1,14 @@
-// src/app/api/tasks/[taskId]/route.ts
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "../../../../lib/db";
 import { users, tasks } from "../../../../lib/db/schema";
 import { and, eq } from "drizzle-orm";
-import { isToday, isYesterday } from "date-fns";
 
 export async function DELETE(
   request: Request,
-  context: { params: { taskId: string } } // use "context", don't destructure in the argument
+  context: { params: Promise<{ taskId: string }> } // params is a Promise
 ) {
-  const { params } = context;
+  const params = await context.params; // await first
   const { taskId } = params;
 
   try {
@@ -32,9 +30,9 @@ export async function DELETE(
 }
 export async function PATCH(
   request: Request,
-  context: { params: { taskId: string } }
+  context: { params: Promise<{ taskId: string }> }
 ) {
-  const { params } = context;
+  const params = await context.params;
   const { taskId } = params;
 
   try {
@@ -69,7 +67,7 @@ export async function PATCH(
 
           await tx
             .update(users)
-            .set({ currentStreak: newStreak, lastTaskCompletionDate: today.toISOString() })
+            .set({ currentStreak: newStreak, lastTaskCompletionDate: today })
             .where(eq(users.id, userId));
         }
       }
