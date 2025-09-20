@@ -3,8 +3,8 @@
 import { NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs/server"; 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { db } from "@/lib/db";
-import { users, tasks } from "@/lib/db/schema";
+import { db } from "../../../lib/db";
+import { users, tasks } from "../../../lib/db/schema";
 import { eq } from "drizzle-orm"; // Import eq for the user check
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);

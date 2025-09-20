@@ -2,8 +2,8 @@
 
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { db } from "@/lib/db";
-import { users, tasks } from "@/lib/db/schema";
+import { db } from "../../../../lib/db";
+import { users, tasks } from "../../../../lib/db/schema";
 import { and, eq } from "drizzle-orm";
 import { isToday, isYesterday } from 'date-fns';
 
