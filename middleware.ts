@@ -21,3 +21,4 @@ export const config = {
   ],
   runtime: "nodejs",
 }
+export const runtime = 'nodejs';
