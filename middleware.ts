@@ -1,23 +1,21 @@
+// middleware.ts
+import { authMiddleware } from "@clerk/nextjs";
 
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
-
-const isPublicRoute = createRouteMatcher(['/auth/sign-in(.*)', '/auth/sign-up(.*)'])
-
-export default clerkMiddleware(async (auth, req) => {
-  try {
-    if (!isPublicRoute(req)) {
-      await auth.protect()
-    }
-  } catch (err) {
-    console.error("Middleware auth error:", err)
-    // Optionally: return new Response("Unauthorized", { status: 401 });
-  }
-})
+export default authMiddleware({
+  // Add all public routes here
+  publicRoutes: [
+    '/', // Your homepage
+    '/auth/sign-in(.*)',
+    '/auth/sign-up(.*)',
+  ],
+});
 
 export const config = {
   matcher: [
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
     '/(api|trpc)(.*)',
   ],
-  runtime: "nodejs",
-}
+};
+
+// You no longer need the 'runtime' export with Clerk v5 middleware.
+// It is optimized to run on the Edge runtime by default.
