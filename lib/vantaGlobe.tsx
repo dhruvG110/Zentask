@@ -3,6 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import * as THREE from "three";
 
+declare global {
+  interface Window {
+    VANTA: any;
+  }
+}
+
 export default function VantaGlobe() {
   const vantaRef = useRef<HTMLDivElement>(null);
   const [vantaEffect, setVantaEffect] = useState<any>(null);
