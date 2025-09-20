@@ -12,7 +12,7 @@ export async function DELETE(
   { params }: { params: { taskId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const { userId } =await auth();
     const taskId = params.taskId;
 
     if (!userId) {
