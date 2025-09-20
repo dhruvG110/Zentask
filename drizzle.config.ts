@@ -13,6 +13,6 @@ export default {
   schema: "./src/lib/db/schema.ts", // <-- IMPORTANT: ADJUST THIS PATH IF YOU DON'T USE A 'src' FOLDER
   out: "./drizzle",
   dbCredentials: {
-    connectionString: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL,
   },
 } satisfies Config;
