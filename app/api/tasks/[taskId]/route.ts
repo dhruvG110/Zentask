@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "../../../../lib/db";
 import { users, tasks } from "../../../../lib/db/schema";
 import { and, eq } from "drizzle-orm";
+import { isToday, isYesterday } from "date-fns";
 
 export async function DELETE(
   request: Request,
@@ -67,7 +68,7 @@ export async function PATCH(
 
           await tx
             .update(users)
-            .set({ currentStreak: newStreak, lastTaskCompletionDate: today })
+            .set({ currentStreak: newStreak, lastTaskCompletionDate: today.toISOString() })
             .where(eq(users.id, userId));
         }
       }
