@@ -2,10 +2,10 @@
 "use client";
 
 import { useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button"; // Import Button
+import { Checkbox } from "../components/ui/checkbox";
+import { Button } from "../components/ui/button"; // Import Button
 import { Trash2 } from "lucide-react"; // Import a delete icon
-import type { tasks } from "@/lib/db/schema";
+import type { tasks } from "../lib/db/schema";
 
 // Define the type for a task with its subtasks
 type TaskWithSubTasks = typeof tasks.$inferSelect & {
